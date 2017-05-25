@@ -1,0 +1,42 @@
+/**************************************************************************************************/
+Given the coordinates of four points in 2D space, return whether the four points could 
+construct a square.
+
+The coordinate (x,y) of a point is represented by an integer array with two integers.
+
+Example:
+Input: p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1]
+Output: True
+Note:
+
+All the input integers are in the range [-10000, 10000].
+A valid square has four equal sides with positive length and four equal angles (90-degree angles).
+Input points have no order.
+/**************************************************************************************************/
+
+bool isBigger(vector<int> v1, vector<int> v2)
+{
+	if(v1[0]==v2[0])
+		return v1[1]>v2[1];
+	else
+		return v1[0]>v2[0];
+}
+
+class Solution {
+public:
+	
+    bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
+        if(p1.size()==0 || p2.size()==0 || p3.size()==0 || p4.size()==0)
+			return false;
+		vector<vector<int>> data;
+		data.push_back(p1);
+		data.push_back(p2);
+		data.push_back(p3);
+		data.push_back(p4);
+		sort(data.begin(), data.end(), isBigger);
+		int len1=0, len2=0;
+		len1=pow(p1[0]-p4[0], 2)+pow(p1[1]-p4[1], 2);
+		len2=pow(p2[0]-p3[0], 2)+pow(p2[1]-p3[1], 2);
+		return len1==len2;
+    }
+};
